@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+  <title>Login</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Carbon Check">
+  <meta name="keywords" content="Carbon Check">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Fav icon-->
+{#  <link rel="shortcut icon" href="{% static 'admin/assets/images/favicon.png' %}">#}
+  <!-- Font Family-->
+  <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&amp;display=swap" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
+  <!-- Font Awesome-->
+  <link rel="stylesheet" href="{% static 'admin/assets/css/fontawesome.min.css' %}">
+  <!-- Bootstrap CSS-->
+  <link rel="stylesheet" href="{% static 'admin/assets/css/bootstrap.css' %}">
+  <!-- Animation CSS-->
+  <link rel="stylesheet" href="{% static 'admin/assets/css/animate.css' %}">
+  <!-- Owl carousel css-->
+  <link rel="stylesheet" href="{% static 'admin/assets/css/owlcarousel.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/assets/css/owl.theme.default.min.css' %}">
+  <!-- Form validation css-->
+  <link rel="stylesheet" href="{% static 'admin/assets/css/validation.css' %}">
+  <!-- Style css-->
+  <link rel="stylesheet" href="{% static 'admin/assets/css/auth-style.css' %}">
+  <!-- Responsive css-->
+  <link rel="stylesheet" href="{% static 'admin/assets/css/auth-responsive.css' %}">
+  <!-- color variation-->
+  <link id="color" rel="stylesheet" href="{% static 'admin/assets/css/color/color-1.css' %}" media="screen">
+   <style>
+  .error_msg{
+        color: red;
+    }
+  </style>
+  </head>
+  <body>
+    <!-- Preloader-->
+{#    <div class="loader-wrapper">#}
+{#      <div class="loader"></div>#}
+{#    </div>#}
+    <!-- Preloader end-->
+    <section class="authentication-form">
+{#      <div class="innerpage-decor">#}
+{#        <div class="innerpage-circle1"><img src="{% static 'admin/assets/images/background/leaf4.png' %}" alt=""></div>#}
+{#        <div class="innerpage-circle2"><img src="{% static 'admin/assets/images/background/leaf3.png' %}" alt=""></div>#}
+{#      </div>#}
+      <div>
+        <h2 class="title text-center">RESET YOUR<span> PASSWORD</span></h2>
+        <div class="card">
+          <form method="POST" action="/forgot_password_reset/{{ uidb64 }}/{{ token }}/" class="theme-form" id="forget_pwd_email">{% csrf_token %}
+                 {% for message in messages %}
+
+                    <div class="alert alert-danger">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+
+                        {{ message }}
+
+                    </div>
+            {% endfor %}
+            <div class="form-group">
+              <input class="form-control"  name="pwd" id="pwd" type="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="password" name="re_pwd" id="re_pwd" placeholder="retype password">
+              <div class="show-hide"><span class="show"></span></div>
+            </div>
+            <div class="form-button text-center">
+              <button class="btn btn-custom thm-btn"  type="submit">Done</button>
+            </div>
+          </form>
+        </div>
+      </div>
+{#      <div class="auth-decor">#}
+{#        <div class="auth-circle1"><img src="{% static 'admin/assets/images/background/leaf2.png' %}" alt="leaf2"></div>#}
+{#        <div class="auth-circle2"><img src="{% static 'admin/assets/images/background/leaf5.png' %}" alt="leaf5"></div>#}
+{#    </div>#}
+    </section>
+  
+    <!-- js file-->
+    <script src="{% static 'admin/assets/js/jquery-3.4.1.min.js' %}"></script>
+    <!-- bootstrap js file-->
+    <script src="{% static 'admin/assets/js/bootstrap/bootstrap.js' %}"></script>
+   
+    <!-- script js file-->
+    <script src="{% static 'admin/assets/js/script.js' %}"></script>
+
+  <script>
+    $("#forget_pwd_email").submit(function(event) {
+           $(".error_msg").html('');
+           event.preventDefault();
+           error=true
+           if ($("#pwd").val()== null || $("#pwd").val()== '') {
+            $('<span class="error_msg">Please Enter Password</span>').insertAfter("#pwd");
+            console.log(error);
+            error=false
+            }
+            if ($("#re_pwd").val()== null || $("#re_pwd").val()== '') {
+            $('<span class="error_msg">Please Retype yor password</span>').insertAfter("#re_pwd");
+            console.log(error);
+            error=false
+            }
+             if (error == true){
+            $("#forget_pwd_email")[0].submit()
+            }
+            else {
+            console.log(error);
+            }
+            });
+</script>
+  </body>
+
+</html>
